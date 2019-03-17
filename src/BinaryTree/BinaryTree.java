@@ -45,51 +45,7 @@ public class BinaryTree {
 
      */
 
-    public static void main(String[] args){
 
-        TreeNode t1=new TreeNode(1);
-        TreeNode t2=new TreeNode(2);
-        TreeNode t3=new TreeNode(3);
-        TreeNode t4=new TreeNode(4);
-        TreeNode t5=new TreeNode(5);
-        TreeNode t6=new TreeNode(6);
-
-        t1.left  = t2;
-        t1.right = t3;
-        t2.left  = t4;
-        t2.right  = t5;
-        t3.right  = t6;
-
-//        BinaryTree bt = new BinaryTree();
-//        System.out.println(bt.getNumNodeRec(t1));
-
-//        System.out.println(BinaryTree.getNumNodeRec(t1));
-//        System.out.println(BinaryTree.getNumNode(t1));
-//        System.out.println(BinaryTree.getDepth(t1));
-//        System.out.println(BinaryTree.getDepth2(t1));
-//        System.out.println(BinaryTree.getDepth2(t6));
-//        System.out.println(BinaryTree.getDepth2(null));
-
-//        preorderTraversalRec(t1);
-//        preorderTraversal(t1);
-//        System.out.println();
-//        inorderTraversalRec(t1);
-//        System.out.println();
-//        inorderTraversal(t1);
-//        System.out.println();
-//        postorderTraversalRec(t1);
-//        System.out.println();
-
-//        levelTraversal(t1);
-
-        System.out.println(getNodeNumKthLevel(t1,3));
-        System.out.println(getNodeNumLeafRec(t3));
-
-
-
-
-
-    }
 
     public static class TreeNode{
         int val;
@@ -343,6 +299,167 @@ public class BinaryTree {
             return 1;
         return getNodeNumLeafRec(root.left) + getNodeNumLeafRec(root.right);
 
+
+    }
+
+    /**
+     * 找出最大的节点
+     * @param root
+     * @return
+     */
+    public static int getMaxNode(TreeNode root){
+        if(root == null)
+            return -1;
+        if(root.left == null && root.right == null)
+            return root.val;
+        return Math.max(root.val,Math.max(getMaxNode(root.left),getMaxNode(root.right)));
+
+    }
+//    public static TreeNode getLastCommonNode(TreeNode root,TreeNode n1,TreeNode n2){
+//
+//        if(root == null)
+//            return root;
+//        if(root.left == null && root.right == null)
+//            return root;
+//        return root;
+//
+//    }
+    public static int getMaxDistanceRec(TreeNode root){
+        if(root == null)
+            return 0;
+        if(root.left == null && root.right == null)
+            return 1;
+        return 1 + getDepthRec(root.left ) + getDepthRec(root.right );
+
+    }
+
+    public TreeNode getKthNode(TreeNode root,int k){
+        if(root == null){
+            return null;
+        }
+        Stack <TreeNode> sk = new Stack<TreeNode>();
+        TreeNode cur = root;
+        int count = 0;
+        while (true){
+            while(cur!=null){
+                sk.push(cur);
+                cur=cur.left;
+            }
+            if (sk.isEmpty())
+                break;
+            if (!sk.isEmpty()){
+                cur = sk.pop();
+//                System.out.print(cur.val + " ");
+                count ++ ;
+                if (count == k)
+                    return cur;
+                cur = cur.right;
+            }
+
+        }
+
+        return null;
+
+    }
+    public static void Heap(int[] arr,int start,int end){
+
+        int index = start;
+
+        int i = 2*index;
+        int temp = arr[index-1];
+        while(i <= end){
+            if(i+1 <= end && arr[i-1] < arr[i]){
+                i++;
+            }
+            if(temp < arr[i-1]){
+                arr[i/2-1] = arr[i-1];
+                i = i*2;
+            }else {
+                break;
+            }
+
+        }
+        arr[i/2-1]=temp;
+
+    }
+
+    public static void HeapSort(int[] arr){
+        int len = arr.length;
+        if(arr.length == 0)
+            return;
+
+
+        for (int i = len / 2; i > 0; i--) {
+            Heap(arr,i,len);
+        }
+        int temp;
+        for (int i = len; i > 0; i--) {
+            temp=arr[i-1];
+            arr[i-1]=arr[0];
+            arr[0]=temp;
+            Heap(arr,1,i);
+        }
+
+        return;
+    }
+
+    public static void main(String[] args){
+
+        TreeNode t1=new TreeNode(1);
+        TreeNode t2=new TreeNode(2);
+        TreeNode t3=new TreeNode(3);
+        TreeNode t4=new TreeNode(4);
+        TreeNode t5=new TreeNode(5);
+        TreeNode t6=new TreeNode(6);
+
+        t1.left  = t2;
+        t1.right = t3;
+        t2.left  = t4;
+        t2.right  = t5;
+        t3.right  = t6;
+
+//        BinaryTree bt = new BinaryTree();
+//        System.out.println(bt.getNumNodeRec(t1));
+
+//        System.out.println(BinaryTree.getNumNodeRec(t1));
+//        System.out.println(BinaryTree.getNumNode(t1));
+//        System.out.println(BinaryTree.getDepth(t1));
+//        System.out.println(BinaryTree.getDepth2(t1));
+//        System.out.println(BinaryTree.getDepth2(t6));
+//        System.out.println(BinaryTree.getDepth2(null));
+
+//        preorderTraversalRec(t1);
+//        preorderTraversal(t1);
+//        System.out.println();
+//        inorderTraversalRec(t1);
+//        System.out.println();
+//        inorderTraversal(t1);
+//        System.out.println();
+//        postorderTraversalRec(t1);
+//        System.out.println();
+
+//        levelTraversal(t1);
+
+//        System.out.println(getNodeNumKthLevel(t1,3));
+//        System.out.println(getNodeNumLeafRec(t3));
+//        System.out.println(getMaxNode(t4));
+//        System.out.println(getMaxDistanceRec(t1));
+//        BinaryTree bt = new BinaryTree();
+//        TreeNode KthNode = bt.getKthNode(t1,2);
+//        System.out.println(KthNode.val);
+
+        int[] arr={4,5,9,1,8,7,2};
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+" ");
+
+        }
+        System.out.println();
+
+        HeapSort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+" ");
+
+        }
 
     }
 
