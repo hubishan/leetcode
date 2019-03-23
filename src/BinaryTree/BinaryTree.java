@@ -361,6 +361,7 @@ public class BinaryTree {
         return null;
 
     }
+
     public static void Heap(int[] arr,int start,int end){
 
         int index = start;
@@ -392,12 +393,19 @@ public class BinaryTree {
         for (int i = len / 2; i > 0; i--) {
             Heap(arr,i,len);
         }
+        System.out.println("大顶堆：");
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]+" ");
+        }
+        System.out.println();
+
         int temp;
         for (int i = len; i > 0; i--) {
             temp=arr[i-1];
             arr[i-1]=arr[0];
             arr[0]=temp;
-            Heap(arr,1,i);
+            Heap(arr,1,i-1);
         }
 
         return;
