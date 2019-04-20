@@ -411,6 +411,31 @@ public class BinaryTree {
         return;
     }
 
+    /**
+     * n个整数的无序数组，找到每个元素后面比它大的第一个数，要求时间复杂度为O(N)，用栈+栈底指针
+     * @param arr
+     * @return
+     */
+
+    public static int[] searchFirstLargerValue(int [] arr){
+        int[] result = new int[arr.length];
+        Stack<Integer> sk = new Stack<Integer>();
+        sk.push(0);
+//        {4,5,9,1,8,7,2}
+        for(int i=1;i<arr.length;i++){
+            while(!sk.isEmpty() && arr[i]>arr[sk.peek()]){
+                result[sk.pop()] =arr[i];
+            }
+            sk.push(i);
+        }
+        while(!sk.isEmpty()){
+            result[sk.pop()] = -1;
+        }
+
+        return result;
+
+    }
+
     public static void main(String[] args){
 
         TreeNode t1=new TreeNode(1);
@@ -456,18 +481,26 @@ public class BinaryTree {
 //        TreeNode KthNode = bt.getKthNode(t1,2);
 //        System.out.println(KthNode.val);
 
-        int[] arr={4,5,9,1,8,7,2};
+        int a = 3;
+        System.out.println(++a);
+        int[] arr =  {4,5,9,1,8,7,2,10};
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]+" ");
 
         }
         System.out.println();
-
-        HeapSort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]+" ");
+        int[] result=BinaryTree.searchFirstLargerValue(arr);
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i]+" ");
 
         }
+//        System.out.println();
+//
+//        HeapSort(arr);
+//        for (int i = 0; i < arr.length; i++) {
+//            System.out.print(arr[i]+" ");
+//
+//        }
 
     }
 
